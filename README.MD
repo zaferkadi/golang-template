@@ -76,3 +76,55 @@ another package testing for logs
 ```bash
 go get github.com/stretchr/testify
 ```
+
+### step 4 github actions
+
+Refer to ci.yml to check how we setup a testing pipeline, with a postgres service, and curling the necessary golang-migration bin.
+
+### step 5 load config using Viper
+
+install viper
+
+```bash
+go get github.com/spf13/viper
+```
+
+create an app.env file and util/config.go to unmarshal the env variables
+
+### step 6 create http server
+
+use gin server
+create APIs
+
+### step 7 mock db for testing http api using stubs gomock
+
+install gomock
+
+```bash
+go install github.com/golang/mock/mockgen@v1.6.0
+```
+
+Make sure mockgen is accessible in cli
+
+```bash
+vi ~/.zshrc
+```
+
+add the following then save and exit.
+
+```bash
+export PATH=$PATH:~/go/bin
+source ~/.zshrc
+```
+
+We can mark go interfaces we'd like to mock by
+
+```go
+//go:generate mockgen -package=mockdb -destination=../mock/mock_store.go . Store
+```
+
+We run the go generate on the current project
+
+```bash
+go generate -v ./...
+```

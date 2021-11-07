@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"example.com/go/util"
 	"github.com/stretchr/testify/require"
+	"github.com/template-go-server/util"
 )
 
 func createRandomAuthor(t *testing.T) Author {

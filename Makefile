@@ -31,4 +31,7 @@ server:
 test:
 	go test -v -cover ./...
 
-.PHONY: test server postgres mysql createdb dropdb sqlc migrateup migrateup1 migratedown migratedown1
+generate-mock:
+	go generate -v ./...
+
+.PHONY: generate-mock test server postgres mysql createdb dropdb sqlc migrateup migrateup1 migratedown migratedown1
