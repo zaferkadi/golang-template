@@ -108,6 +108,63 @@ func TestGetAuthorAPI(t *testing.T) {
 
 }
 
+// func TestCreateAuthorAPI(t *testing.T) {
+// 	author := randomAuthor()
+// 	testCases := []struct {
+// 		name          string
+// 		body          gin.H
+// 		buildStubs    func(store *mockdb.MockStore)
+// 		checkResponse func(recorder *httptest.ResponseRecorder)
+// 	}{
+// 		{
+// 			name: "OK",
+// 			body: gin.H{},
+// 			buildStubs: func(store *mockdb.MockStore) {
+// 				arg := db.CreateAuthorParams{
+// 					Name: author.Name,
+// 					Bio:  author.Bio,
+// 				}
+// 				store.EXPECT().
+// 					CreateAuthor(gomock.Any(), gomock.Eq(arg)).
+// 					Times(1).
+// 					Return(author, nil)
+
+// 			},
+// 			checkResponse: func(recorder *httptest.ResponseRecorder) {
+// 				require.Equal(t, http.StatusOK, recorder.Code)
+// 				requireBodyMatchAuthor(t, recorder.Body, author)
+// 			},
+// 		},
+// 	}
+// 	for i := range testCases {
+// 		tc := testCases[i]
+
+// 		t.Run(tc.name, func(t *testing.T) {
+
+// 			ctrl := gomock.NewController(t)
+// 			defer ctrl.Finish()
+
+// 			store := mockdb.NewMockStore(ctrl)
+// 			tc.buildStubs(store)
+
+// 			// start test server and send request
+// 			server, _ := NewServer(store)
+// 			recorder := httptest.NewRecorder()
+
+// 			// Marshal body data to JSON
+// 			data, err := json.Marshal(tc.body)
+// 			require.NoError(t, err)
+
+// 			url := "/authors"
+// 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
+// 			require.NoError(t, err)
+
+// 			server.router.ServeHTTP(recorder, request)
+// 			tc.checkResponse(recorder)
+// 		})
+// 	}
+// }
+
 func randomAuthor() db.Author {
 	return db.Author{
 		ID:   int32(util.RandomInt(1, 1000)),

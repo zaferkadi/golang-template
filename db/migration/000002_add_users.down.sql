@@ -1,0 +1,6 @@
+ALTER TABLE
+IF EXISTS "authors"
+DROP CONSTRAINT
+IF EXISTS "authors_name_fkey";
+
+DROP TABLE IF EXISTS "users";
