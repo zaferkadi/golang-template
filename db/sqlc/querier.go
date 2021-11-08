@@ -8,8 +8,10 @@ import (
 
 type Querier interface {
 	CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Author, error)
+	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteAuthor(ctx context.Context, id int32) error
 	GetAuthor(ctx context.Context, id int32) (Author, error)
+	GetUser(ctx context.Context, username string) (User, error)
 	ListAuthors(ctx context.Context, arg ListAuthorsParams) ([]Author, error)
 	UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) (Author, error)
 }

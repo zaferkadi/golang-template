@@ -11,8 +11,10 @@ import (
 )
 
 func createRandomAuthor(t *testing.T) Author {
+	user := createRandomUser(t)
+
 	arg := CreateAuthorParams{
-		Name: util.RandomOwner(),
+		Name: user.Username,
 		Bio:  util.RandomText(),
 	}
 

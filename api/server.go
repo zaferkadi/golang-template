@@ -28,6 +28,7 @@ func (server *Server) setupRouter() {
 	router.GET("/authors/:id", server.getAuthor)
 	router.GET("/authors", server.listAuthors)
 
+	router.POST("/users", server.createUser)
 	server.router = router
 }
 
