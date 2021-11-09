@@ -94,7 +94,7 @@ func TestGetAuthorAPI(t *testing.T) {
 			tc.buildStubs(store)
 
 			// start test server and send request
-			server, _ := NewServer(store)
+			server := NewTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/authors/%d", tc.authorID)
