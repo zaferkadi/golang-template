@@ -128,3 +128,15 @@ We run the go generate on the current project
 ```bash
 go generate -v ./...
 ```
+
+### step 8 install jwt
+
+```bash
+go get github.com/dgrijalva/jwt-go
+```
+
+install paseto
+
+```bash
+github.com/o1egl/paseto
+```
