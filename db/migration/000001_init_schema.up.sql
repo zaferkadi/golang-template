@@ -8,7 +8,7 @@ CREATE TABLE "genres"
 CREATE TABLE "authors"
 (
     "id" SERIAL PRIMARY KEY,
-    "name" varchar(255) NOT NULL,
+    "owner" varchar(255) NOT NULL,
     "bio" varchar(500) NOT NULL,
     "created_at" timestamptz DEFAULT (now())
 );

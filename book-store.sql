@@ -15,7 +15,7 @@ CREATE TABLE "genres" (
 
 CREATE TABLE "authors" (
   "id" SERIAL PRIMARY KEY,
-  "name" varchar(255) NOT NULL,
+  "owner" varchar(255) NOT NULL,
   "bio" varchar(500) NOT NULL,
   "created_at" timestamptz DEFAULT (now())
 );
@@ -42,5 +42,5 @@ ALTER TABLE "books_authors" ADD FOREIGN KEY ("book_id") REFERENCES "books" ("id"
 
 ALTER TABLE "books_authors" ADD FOREIGN KEY ("author_id") REFERENCES "authors" ("id");
 
-ALTER TABLE "authors" ADD FOREIGN KEY ("name") REFERENCES "users" ("username");
+ALTER TABLE "authors" ADD FOREIGN KEY ("owner") REFERENCES "users" ("username");
 

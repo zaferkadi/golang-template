@@ -1,7 +1,7 @@
 -- name: CreateAuthor :one
 INSERT INTO authors
     (
-    name, bio
+    owner, bio
     )
 VALUES
     (
@@ -25,7 +25,7 @@ $2;
 
 -- name: UpdateAuthor :one
 UPDATE authors
-SET name = $2
+SET bio = $2
 WHERE id = $1
 RETURNING *;
 

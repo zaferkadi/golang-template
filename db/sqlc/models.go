@@ -9,7 +9,7 @@ import (
 
 type Author struct {
 	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
+	Owner     string       `json:"owner"`
 	Bio       string       `json:"bio"`
 	CreatedAt sql.NullTime `json:"created_at"`
 }

@@ -8,4 +8,4 @@ CREATE TABLE "users"
     "created_at" timestamptz DEFAULT (now())
 );
 
-ALTER TABLE "authors" ADD FOREIGN KEY ("name") REFERENCES "users" ("username");
+ALTER TABLE "authors" ADD FOREIGN KEY ("owner") REFERENCES "users" ("username");

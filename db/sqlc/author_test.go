@@ -14,8 +14,8 @@ func createRandomAuthor(t *testing.T) Author {
 	user := createRandomUser(t)
 
 	arg := CreateAuthorParams{
-		Name: user.Username,
-		Bio:  util.RandomText(),
+		Owner: user.Username,
+		Bio:   util.RandomText(),
 	}
 
 	author, err := testQueries.CreateAuthor(context.Background(), arg)
@@ -23,7 +23,7 @@ func createRandomAuthor(t *testing.T) Author {
 
 	require.NotEmpty(t, author)
 
-	require.Equal(t, arg.Name, author.Name)
+	require.Equal(t, arg.Owner, author.Owner)
 	require.Equal(t, arg.Bio, author.Bio)
 
 	require.NotZero(t, author.ID)
@@ -44,7 +44,7 @@ func TestGetAuthor(t *testing.T) {
 	require.NotEmpty(t, author2)
 
 	require.Equal(t, author1.ID, author2.ID)
-	require.Equal(t, author1.Name, author2.Name)
+	require.Equal(t, author1.Owner, author2.Owner)
 	require.Equal(t, author1.Bio, author2.Bio)
 
 	require.WithinDuration(t, author1.CreatedAt.Time, author2.CreatedAt.Time, time.Second)
@@ -54,8 +54,8 @@ func TestUpdateAuthor(t *testing.T) {
 	author1 := createRandomAuthor(t)
 
 	arg := UpdateAuthorParams{
-		ID:   author1.ID,
-		Name: util.RandomOwner(),
+		ID:  author1.ID,
+		Bio: util.RandomText(),
 	}
 
 	author2, err := testQueries.UpdateAuthor(context.Background(), arg)
@@ -64,8 +64,8 @@ func TestUpdateAuthor(t *testing.T) {
 	require.NotEmpty(t, author2)
 
 	require.Equal(t, author1.ID, author2.ID)
-	require.Equal(t, arg.Name, author2.Name)
-	require.Equal(t, author1.Bio, author2.Bio)
+	require.Equal(t, author1.Owner, author2.Owner)
+	require.Equal(t, arg.Bio, author2.Bio)
 
 	require.WithinDuration(t, author1.CreatedAt.Time, author2.CreatedAt.Time, time.Second)
 }

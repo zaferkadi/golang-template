@@ -167,9 +167,9 @@ func TestGetAuthorAPI(t *testing.T) {
 
 func randomAuthor() db.Author {
 	return db.Author{
-		ID:   int32(util.RandomInt(1, 1000)),
-		Name: util.RandomOwner(),
-		Bio:  util.RandomText(),
+		ID:    int32(util.RandomInt(1, 1000)),
+		Owner: util.RandomOwner(),
+		Bio:   util.RandomText(),
 	}
 }
 

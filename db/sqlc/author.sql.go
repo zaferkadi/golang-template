@@ -10,26 +10,26 @@ import (
 const createAuthor = `-- name: CreateAuthor :one
 INSERT INTO authors
     (
-    name, bio
+    owner, bio
     )
 VALUES
     (
         $1, $2
 )
-RETURNING id, name, bio, created_at
+RETURNING id, owner, bio, created_at
 `
 
 type CreateAuthorParams struct {
-	Name string `json:"name"`
-	Bio  string `json:"bio"`
+	Owner string `json:"owner"`
+	Bio   string `json:"bio"`
 }
 
 func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Author, error) {
-	row := q.db.QueryRowContext(ctx, createAuthor, arg.Name, arg.Bio)
+	row := q.db.QueryRowContext(ctx, createAuthor, arg.Owner, arg.Bio)
 	var i Author
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Owner,
 		&i.Bio,
 		&i.CreatedAt,
 	)
@@ -47,7 +47,7 @@ func (q *Queries) DeleteAuthor(ctx context.Context, id int32) error {
 }
 
 const getAuthor = `-- name: GetAuthor :one
-SELECT id, name, bio, created_at
+SELECT id, owner, bio, created_at
 FROM authors
 WHERE id = $1
 LIMIT 1
@@ -58,7 +58,7 @@ func (q *Queries) GetAuthor(ctx context.Context, id int32) (Author, error) {
 	var i Author
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Owner,
 		&i.Bio,
 		&i.CreatedAt,
 	)
@@ -66,7 +66,7 @@ func (q *Queries) GetAuthor(ctx context.Context, id int32) (Author, error) {
 }
 
 const listAuthors = `-- name: ListAuthors :many
-SELECT id, name, bio, created_at
+SELECT id, owner, bio, created_at
 FROM authors
 ORDER BY id
 LIMIT $1
@@ -90,7 +90,7 @@ func (q *Queries) ListAuthors(ctx context.Context, arg ListAuthorsParams) ([]Aut
 		var i Author
 		if err := rows.Scan(
 			&i.ID,
-			&i.Name,
+			&i.Owner,
 			&i.Bio,
 			&i.CreatedAt,
 		); err != nil {
@@ -109,22 +109,22 @@ func (q *Queries) ListAuthors(ctx context.Context, arg ListAuthorsParams) ([]Aut
 
 const updateAuthor = `-- name: UpdateAuthor :one
 UPDATE authors
-SET name = $2
+SET bio = $2
 WHERE id = $1
-RETURNING id, name, bio, created_at
+RETURNING id, owner, bio, created_at
 `
 
 type UpdateAuthorParams struct {
-	ID   int32  `json:"id"`
-	Name string `json:"name"`
+	ID  int32  `json:"id"`
+	Bio string `json:"bio"`
 }
 
 func (q *Queries) UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) (Author, error) {
-	row := q.db.QueryRowContext(ctx, updateAuthor, arg.ID, arg.Name)
+	row := q.db.QueryRowContext(ctx, updateAuthor, arg.ID, arg.Bio)
 	var i Author
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Owner,
 		&i.Bio,
 		&i.CreatedAt,
 	)

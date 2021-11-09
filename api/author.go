@@ -10,8 +10,8 @@ import (
 )
 
 type createAuthorRequest struct {
-	Name string `json:"name" binding:"required"`
-	Bio  string `json:"bio" binding:"required"`
+	Owner string `json:"owner" binding:"required"`
+	Bio   string `json:"bio" binding:"required"`
 }
 
 func (server *Server) createAuthor(ctx *gin.Context) {
@@ -22,8 +22,8 @@ func (server *Server) createAuthor(ctx *gin.Context) {
 	}
 
 	arg := db.CreateAuthorParams{
-		Name: req.Name,
-		Bio:  req.Bio,
+		Owner: req.Owner,
+		Bio:   req.Bio,
 	}
 
 	author, err := server.store.CreateAuthor(ctx, arg)
