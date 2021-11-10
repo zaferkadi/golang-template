@@ -8,12 +8,17 @@ import (
 
 type Querier interface {
 	CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Author, error)
+	CreateGenre(ctx context.Context, arg CreateGenreParams) (Genre, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteAuthor(ctx context.Context, id int32) error
+	DeleteGenre(ctx context.Context, id int32) error
 	GetAuthor(ctx context.Context, id int32) (Author, error)
+	GetGenre(ctx context.Context, id int32) (Genre, error)
 	GetUser(ctx context.Context, username string) (User, error)
 	ListAuthors(ctx context.Context, arg ListAuthorsParams) ([]Author, error)
+	ListGenres(ctx context.Context, arg ListGenresParams) ([]Genre, error)
 	UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) (Author, error)
+	UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error)
 }
 
 var _ Querier = (*Queries)(nil)
