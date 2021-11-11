@@ -88,18 +88,16 @@ func TestGetAuthorAPI(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 
 			ctrl := gomock.NewController(t)
-			defer ctrl.Finish()
-
 			store := mockdb.NewMockStore(ctrl)
 			tc.buildStubs(store)
-
-			// start test server and send request
-			server := NewTestServer(t, store)
-			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/authors/%d", tc.authorID)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
+
+			// start test server and send request
+			server := NewTestServer(t, store)
+			recorder := httptest.NewRecorder()
 
 			server.router.ServeHTTP(recorder, request)
 			tc.checkResponse(t, recorder)
@@ -142,7 +140,6 @@ func TestGetAuthorAPI(t *testing.T) {
 // 		t.Run(tc.name, func(t *testing.T) {
 
 // 			ctrl := gomock.NewController(t)
-// 			defer ctrl.Finish()
 
 // 			store := mockdb.NewMockStore(ctrl)
 // 			tc.buildStubs(store)

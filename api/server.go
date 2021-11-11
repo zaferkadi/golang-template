@@ -37,13 +37,13 @@ func (server *Server) setupRouter() {
 	router := gin.Default()
 	router.GET("/", server.getHello)
 
-	router.POST("/authors", server.createAuthor)
 	router.GET("/authors/:id", server.getAuthor)
 	router.GET("/authors", server.listAuthors)
+	router.POST("/authors", server.createAuthor)
 
 	router.GET("/genres", server.listGenres)
-	router.POST("/genres", server.createGenre)
 	router.GET("/genres/:id", server.getGenre)
+	router.POST("/genres", server.createGenre)
 
 	router.POST("/users", server.createUser)
 	router.POST("/users/login", server.loginUser)
