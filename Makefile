@@ -1,3 +1,5 @@
+HAS_GOCILINT  = $(shell command -v golangci-lint)
+
 postgres:
 	docker run --name postgres12 --network books-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
 
@@ -26,7 +28,7 @@ sqlc:
 	sqlc generate
 
 server:
-	go run main.go 
+	go run ./cmd/http/main.go 
 
 test:
 	go test -v -cover ./...
@@ -34,4 +36,10 @@ test:
 generate-mock:
 	go generate -v ./...
 
-.PHONY: generate-mock test server postgres mysql createdb dropdb sqlc migrateup migrateup1 migratedown migratedown1
+lint: ## Perform lint checks
+ifndef HAS_GOCILINT
+	echo "Please install golang-ci-lint `make install-golang-ci-lint`"
+endif
+	golangci-lint run --timeout=30m
+
+.PHONY: generate-mock test server postgres mysql createdb dropdb sqlc migrateup migrateup1 migratedown migratedown1 lint
