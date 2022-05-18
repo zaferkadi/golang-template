@@ -140,3 +140,7 @@ install paseto
 ```bash
 github.com/o1egl/paseto
 ```
+
+## database diagram
+
+![Alt text](schema/schema.png?raw=true "Title")

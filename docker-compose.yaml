@@ -9,10 +9,17 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+  schemacrawler:
+    image: schemacrawler/schemacrawler
+    container_name: schemacrawler
     volumes:
       -  ./schema:/schema
+    depends_on:
+      - postgres
+    stdin_open: true
 
   api:
+    container_name: "api"
     build:
       context: .
       dockerfile: Dockerfile
@@ -27,3 +34,4 @@ services:
 
 volumes:
   schema:
+  data:

@@ -7,17 +7,17 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
+	"github.com/template-go-server/util"
 )
 
 var testQueries *Queries
 
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:secret@localhost:5432/simple_books?sslmode=disable"
-)
-
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannon load config:", err)
+	}
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
 
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)

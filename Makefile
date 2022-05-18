@@ -3,7 +3,6 @@ POSTGRES_USER := postgres
 POSTGRES_PASSWORD := secret
 POSTGRES_DB := simple_books
 POSTGRESQL_URL := postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_SERVER_NAME}:5432/${POSTGRES_DB}?sslmode=disable
-POSTGRESQL_MIGRATE_URL := postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}?sslmode=disable
 
 export POSTGRESQL_URL
 export POSTGRES_USER
@@ -23,27 +22,28 @@ remove:
 destroy:
 	docker-compose down --remove-orphans
 
-createdb:
-	docker exec -it ${DB_SERVER_NAME} createdb --username=${POSTGRES_USER} --owner=${POSTGRES_USER} ${POSTGRES_DB}
-
-dropdb:
-	docker exec -it ${DB_SERVER_NAME} dropdb ${POSTGRES_DB}
-
 migrateup:
-	migrate -path db/migration -database ${POSTGRESQL_MIGRATE_URL} -verbose up
+	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose up"
 
 migrateup1:
-	migrate -path db/migration -database ${POSTGRESQL_MIGRATE_URL} -verbose up 1
+	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose up 1"
 
 migratedown:
-	migrate -path db/migration -database ${POSTGRESQL_MIGRATE_URL} -verbose down
+	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose down"
 
 migratedown1:
-	migrate -path db/migration -database ${POSTGRESQL_MIGRATE_URL} -verbose down 1
+	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose down 1"
 
-generate-schema:
-	docker exec -it ${DB_SERVER_NAME} pg_dump simple_books -U postgres > schema/schema.sql
-
+dump-schema-image:
+	docker compose exec schemacrawler \
+	 /opt/schemacrawler/bin/schemacrawler.sh  \
+	--server=postgresql \
+	--host=${DB_SERVER_NAME}  \
+	--database=${POSTGRES_DB} --user=${POSTGRES_USER} --password=${POSTGRES_PASSWORD} \
+	--info-level=maximum --command=schema \
+	--output-format=png \
+	--output-file=/schema/schema.png
+	
 sqlc:
 	sqlc generate
 
