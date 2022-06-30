@@ -23,16 +23,16 @@ destroy:
 	docker-compose down --remove-orphans
 
 migrateup:
-	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose up"
+	docker compose exec api sh -c "./migrate -path /app/migrations -database ${POSTGRESQL_URL} -verbose up"
 
 migrateup1:
-	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose up 1"
+	docker compose exec api sh -c "./migrate -path /app/migrations -database ${POSTGRESQL_URL} -verbose up 1"
 
 migratedown:
-	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose down"
+	docker compose exec api sh -c "./migrate -path /app/migrations -database ${POSTGRESQL_URL} -verbose down"
 
 migratedown1:
-	docker compose exec api sh -c "./migrate -path /app/migration -database ${POSTGRESQL_URL} -verbose down 1"
+	docker compose exec api sh -c "./migrate -path /app/migrations -database ${POSTGRESQL_URL} -verbose down 1"
 
 dump-schema-image:
 	docker compose exec schemacrawler \

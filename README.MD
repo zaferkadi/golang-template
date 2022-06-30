@@ -9,10 +9,10 @@ brew install golang-migrate
 Create the first sql migration file
 
 ```bash
-migrate create -ext sql -dir db/migration -seq init_schema
+migrate create -ext sql -dir db/migrations -seq init_schema
 ```
 
-Add your sql schemas into up.sql and down.sql files inside db/migration folder
+Add your sql schemas into up.sql and down.sql files inside db/migrations folder
 
 Fire up a postgres container
 
